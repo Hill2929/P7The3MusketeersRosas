@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("You Win!");
             gameOver = true;
+            gameManager.YouWin();
         }
     }
 }

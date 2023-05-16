@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject titleScreen;
     private bool paused;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI winText;
     public Button restartButton;
     public bool isGameActive;
     // Start is called before the first frame update
@@ -33,6 +34,11 @@ public class GameManager : MonoBehaviour
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
         isGameActive = false;
+    }
+    public void YouWin()
+    {
+        winText.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
     }
     public void RestartGame()
     {
