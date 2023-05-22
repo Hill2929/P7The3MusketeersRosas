@@ -11,12 +11,15 @@ public class PlayerController : MonoBehaviour
     public bool gameOver = false; 
     private Rigidbody2D playerRb;
     public float gravityModifier;
+    Animator animator;
+    Vector2 lookDirection = new Vector2(1, 0);
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
         Physics.gravity *= gravityModifier;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -26,10 +29,20 @@ public class PlayerController : MonoBehaviour
         {
             horizontal = Input.GetAxis("Horizontal");
             transform.Translate(Vector3.right * horizontal * Time.deltaTime * speed);
+            Vector2 move = new Vector2(horizontal, 0);
+
+            if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(0.0f, 0.0f))
+            {
+                lookDirection.Set(move.x, 0);
+                lookDirection.Normalize();
+            }
+            animator.SetFloat("Look X", lookDirection.x);
+            animator.SetFloat("Speed", move.magnitude);
             if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
             {
                 playerRb.AddForce(Vector3.up * 10, ForceMode2D.Impulse);
                 isOnGround = false;
+                animator.SetTrigger("Move Y");
             }
         }
     }
