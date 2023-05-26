@@ -7,6 +7,7 @@ TagManager:
   - Win
   - Ground
   - Enemy
+  - Ladder
   layers:
   - Default
   - TransparentFX
