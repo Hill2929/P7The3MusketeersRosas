@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     private bool paused;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI winText;
+    public TextMeshProUGUI timerText;
     public Button restartButton;
     public bool isGameActive;
+    public float timer = 30;
     // Start is called before the first frame update
     public void StartGame()
     {
@@ -27,6 +29,15 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             ChangePaused();
+        }
+        if (isGameActive && timer > 0)
+        {
+            timer -= Time.deltaTime;
+            timerText.text = "Time: " + Mathf.Round(timer);
+        }
+        if (timer < 0)
+        {
+            GameOver();
         }
     }
     public void GameOver()
